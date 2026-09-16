@@ -31,6 +31,7 @@ export default function LoginScreen({ navigation }) {
     try {
       await login(email.trim(), password);
     } catch (error) {
+      console.error('Error de inicio de sesión:', error?.code, error?.message);
       setFormError(getAuthErrorMessage(error));
     } finally {
       setLoading(false);

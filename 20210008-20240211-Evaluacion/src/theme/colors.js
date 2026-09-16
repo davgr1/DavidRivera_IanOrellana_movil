@@ -10,4 +10,3 @@ export const colors = {
   textSecondary: '#B8B8C4',
   error: '#E0645C',
 };
- 

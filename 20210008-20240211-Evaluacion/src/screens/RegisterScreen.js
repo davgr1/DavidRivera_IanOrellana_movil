@@ -43,6 +43,7 @@ export default function RegisterScreen({ navigation }) {
         imageUrl: imageUrl.trim(),
       });
     } catch (error) {
+      console.error('Error de registro:', error?.code, error?.message);
       setFormError(getAuthErrorMessage(error));
     } finally {
       setLoading(false);
