@@ -1,6 +1,15 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID, test} from '@env';
+import { initializeApp } from 'firebase/app';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
+} from '@env';
 
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -8,24 +17,21 @@ const firebaseConfig = {
   projectId: PROJECT_ID,
   storageBucket: STORAGE_BUCKET,
   messagingSenderId: MESSAGING_SENDER_ID,
-  appId: APP_ID    
+  appId: APP_ID,
 };
 
-console.log("Valor de test: ", test);
-console.log("Valor de configuracion", firebaseConfig);
+if (API_KEY === 'your_api_key_here') {
+  console.warn(
+    'Firebase: el .env todavía tiene valores de ejemplo. Reemplázalos con las credenciales reales de tu proyecto.'
+  );
+}
 
 const app = initializeApp(firebaseConfig);
-if (app) {
-  console.log('Firebase initialized successfully');
-} else {
-  console.log('Firebase initialization failed');
-}
 
-const database = getFirestore(app);
-if (database) {
-  console.log('Firestore initialized correctly');
-} else {
-  console.log('Firestore initialization failed');
-}
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
 
-export { database };
+export const db = getFirestore(app);
+
+export default app;
