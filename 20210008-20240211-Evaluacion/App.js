@@ -1,7 +1,10 @@
-import Navigation from './src/navigation/AppNavigation.js';
+import { AuthProvider } from './src/hooks/useAuth';
+import AppNavigation from './src/navigation/AppNavigation';
 
 export default function App() {
   return (
-    <Navigation /> 
+    <AuthProvider>
+      <AppNavigation />
+    </AuthProvider>
   );
 }
